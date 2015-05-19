@@ -1,0 +1,8 @@
+#####################
+IP-adres: 
+192.168.1.151 (alleen via Byte Busters WiFi)
+#####################
+SSH
+User: bytebusters
+Passwd: Stenden2015
+#####################
