@@ -35,16 +35,30 @@ User: steven (admin-account met privilige escalation)
 -->Passwd: Stenden2015
 
 User: stenden (nosu) (test-account)
+
+Groep www-data: groep heeft r+w op /var/www/nethero
 #################################################################
 
 #################################################################
 SECURITY
 #################################################################
 Groep nosu: sluit leden uit van privilige escalation.
-
-Groep www-data: groep heeft r+w op /var/www
+(/etc/group, etc/pam.d/common-auth)
 
 Open-SSH: geen rootlogin toegestaan.
+(etc/ssh/sshd.conf)
+
+Non-admin gebruikers hebben enkel SFTP-toegang. Geen SSH-shell.
+(/etc/ssh/sshd.conf)
+
+Gebruikers komen terecht in een chroot-jail. Directories buiten
+/var/www/nethero zijn niet benaderbaar.
+(/etc/ssh/sshd.conf)
+
+PHP maakt gebruik van open_base_dir om uitvoering van scripts
+buiten /var/www/nethero te blokkeren.
+(/etc/php5/apache2/php.ini)
+
 #################################################################
 
 
