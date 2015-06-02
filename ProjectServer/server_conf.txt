@@ -1,0 +1,79 @@
+#################################################################
+VIRTUALISATIE
+#################################################################
+vCPU: 1
+vRAM: 2GB
+Opslag: .vmdk
+Soort: Dynamisch / 40GB
+#################################################################
+
+#################################################################
+OS & PACKAGES
+#################################################################
+OS: Debian GNU/Linux 7.8.0
+Packages: apache2, php5, mysql-server, phpmyadmin, openssh-server
+#################################################################
+
+#################################################################
+NETWERK
+#################################################################
+! Alleen bereikbaar via Byte Busters WiFi netwerk. !
+
+IP-adres: 	192.168.1.151 (static)
+Subnetmasker: 	255.255.255.0
+Netwerk: 	192.168.1.0
+Broadcast: 	192.168.1.255
+Gateway: 	192.168.1.1
+#################################################################
+
+#################################################################
+USERS & GROUPS
+#################################################################
+User: steven (admin-account met privilige escalation)
+
+-->User: bytebusters (nosu, www-data)
+-->Passwd: Stenden2015
+
+User: stenden (nosu) (test-account)
+
+Groep www-data: groep heeft r+w op /var/www/nethero
+#################################################################
+
+#################################################################
+SECURITY
+#################################################################
+Groep nosu: sluit leden uit van privilige escalation.
+(/etc/group, etc/pam.d/common-auth)
+
+Open-SSH: geen rootlogin toegestaan.
+(etc/ssh/sshd.conf)
+
+Non-admin gebruikers hebben enkel SFTP-toegang. Geen SSH-shell.
+(/etc/ssh/sshd.conf)
+
+Gebruikers komen terecht in een chroot-jail. Directories buiten
+/var/www/nethero zijn niet benaderbaar.
+(/etc/ssh/sshd.conf)
+
+PHP maakt gebruik van open_base_dir om uitvoering van scripts
+buiten /var/www/nethero te blokkeren.
+(/etc/php5/apache2/php.ini)
+
+DDOS-PROTECTION
+D.m.v. mod_evasive in Apache (rudimentair)
+
+FIREWALL (UFW)
+Default deny incoming
+
+Incoming allowed:
+22 SSH ALLOW
+80 HTTP ALLOW
+443 HTTPS ALLOW
+
+#################################################################
+
+
+
+
+
+
